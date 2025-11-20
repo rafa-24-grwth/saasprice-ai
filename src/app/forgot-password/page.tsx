@@ -3,6 +3,9 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import { useAuth } from '@/hooks/useAuth'
+
+// Force dynamic rendering to avoid build-time Supabase client initialization
+export const dynamic = 'force-dynamic';
 import { ArrowLeft, Mail, Loader2, CheckCircle, AlertCircle } from 'lucide-react'
 
 export default function ForgotPasswordPage() {

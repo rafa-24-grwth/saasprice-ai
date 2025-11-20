@@ -8,6 +8,9 @@ import {
   generateAlerts,
   DEFAULT_THRESHOLDS
 } from '@/lib/monitoring';
+
+// Force dynamic rendering to avoid build-time Supabase client initialization
+export const dynamic = 'force-dynamic';
 import { 
   StatCard, 
   StatusBadge, 

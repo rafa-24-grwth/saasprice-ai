@@ -9,6 +9,9 @@ import Pricing from '@/components/shared/landing/Pricing';
 import FAQ from '@/components/shared/landing/FAQ';
 import Footer from '@/components/shared/landing/Footer';
 
+// Force dynamic rendering to avoid build-time Supabase client initialization
+export const dynamic = 'force-dynamic';
+
 export const metadata: Metadata = {
   title: 'SaaSPrice.AI - Track SaaS Pricing Changes in Real-Time',
   description: 'The intelligent platform for tracking SaaS pricing changes and optimizing software spend. Get instant alerts, historical data, and ROI insights. Trusted by RevOps and FP&A teams.',

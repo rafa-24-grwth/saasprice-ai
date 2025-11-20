@@ -3,6 +3,9 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
+
+// Force dynamic rendering to avoid build-time Supabase client initialization
+export const dynamic = 'force-dynamic';
 import { 
   Search,
   Filter,

@@ -3,6 +3,9 @@
 
 import { useState, useEffect } from 'react';
 import { useAuth } from '@/hooks/useAuth'; // Add this import
+
+// Force dynamic rendering to avoid build-time Supabase client initialization
+export const dynamic = 'force-dynamic';
 import { 
   User, 
   CreditCard, 

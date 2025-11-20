@@ -1,6 +1,9 @@
 'use client'
 
 import { Suspense, useState, useEffect } from 'react'
+
+// Force dynamic rendering to avoid build-time Supabase client initialization
+export const dynamic = 'force-dynamic';
 import Link from 'next/link'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useAuth } from '@/hooks/useAuth'

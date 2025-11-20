@@ -2,6 +2,9 @@
 'use client';
 
 import React from 'react';
+
+// Force dynamic rendering to avoid build-time Supabase client initialization
+export const dynamic = 'force-dynamic';
 import { motion } from 'framer-motion';
 import { 
   TrendingUp,

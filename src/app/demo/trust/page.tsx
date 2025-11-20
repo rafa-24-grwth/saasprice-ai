@@ -7,6 +7,9 @@ import {
   ConfidenceIndicator,
   MethodologyPopover
 } from '@/components/shared/trust';
+
+// Force dynamic rendering to avoid build-time Supabase client initialization
+export const dynamic = 'force-dynamic';
 import { ArrowUpRight, TrendingUp, TrendingDown, Minus, AlertCircle, Search, SlidersHorizontal } from 'lucide-react';
 
 const vendors = [
