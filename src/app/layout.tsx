@@ -2,6 +2,9 @@ import './globals.css'
 import type { Metadata, Viewport } from 'next'
 import { Providers } from './providers'
 
+// Force dynamic rendering for all pages to prevent Supabase SSR errors during build
+export const dynamic = 'force-dynamic'
+
 export const metadata: Metadata = {
   title: 'SaaSPrice.AI - Institutional-grade SaaS pricing clarity',
   description: 'Compare normalized SaaS pricing with confidence scores, freshness stamps, and full methodology. Know the cost. Show your work.',
