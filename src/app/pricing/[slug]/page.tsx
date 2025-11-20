@@ -196,8 +196,19 @@ function PricingCard({ plan }: { plan: Plan & { prices: PriceFact[] } }) {
 
 // Generate static params for all vendors
 export async function generateStaticParams() {
-  const vendors = await getAllVendors();
-  return vendors.map((vendor) => ({
-    slug: vendor.slug,
-  }));
+  try {
+    const vendors = await getAllVendors();
+    return vendors.map((vendor) => ({
+      slug: vendor.slug,
+    }));
+  } catch (error) {
+    console.warn('Could not fetch vendors for static generation:', error);
+    // Return empty array to allow build to succeed
+    // Pages will be generated on-demand instead
+    return [];
+  }
 }
+
+// Make this page dynamic so it can handle on-demand requests
+export const dynamic = 'force-dynamic';
+export const dynamicParams = true;
