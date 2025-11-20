@@ -6,6 +6,8 @@ import { createServerClient } from '@supabase/ssr';
 import { vendorService } from '@/services/vendor/vendor.service';
 import { ApiError, formatErrorResponse } from '@/utils/api-error';
 
+export const dynamic = 'force-dynamic';
+
 export async function GET(
   request: Request,
   { params }: { params: { id: string } }
