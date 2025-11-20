@@ -64,3 +64,4 @@ An AI-powered SaaS pricing tracking and comparison platform.
 ## License
 
 [MIT](LICENSE)
+# saasprice-ai
