@@ -1,0 +1,261 @@
+# Top 30 Priority Vendors for SaaSPrice.AI
+# Priority 1: Must-have flagship vendors
+
+vendors:
+  # CRM & Sales
+  - slug: salesforce
+    name: Salesforce
+    category: CRM
+    pricing_url: https://www.salesforce.com/pricing/
+    priority: 1
+    scrape_hints:
+      selector_base: ".pricing-table"
+      has_tiers: true
+      has_free_tier: false
+      billing_default: annual
+      has_usage_based: false
+      units: "users"
+
+  - slug: hubspot
+    name: HubSpot
+    category: CRM
+    pricing_url: https://www.hubspot.com/pricing
+    priority: 1
+    scrape_hints:
+      selector_base: "[data-pricing-table]"
+      has_tiers: true
+      has_free_tier: true
+      billing_default: monthly
+      has_usage_based: false
+      units: "users"
+
+  # Communication & Collaboration
+  - slug: slack
+    name: Slack
+    category: Communication
+    pricing_url: https://slack.com/pricing
+    priority: 1
+    scrape_hints:
+      selector_base: ".pricing-grid"
+      has_tiers: true
+      has_free_tier: true
+      billing_default: monthly
+      has_usage_based: false
+      units: "active_users"
+
+  - slug: notion
+    name: Notion
+    category: Productivity
+    pricing_url: https://www.notion.so/pricing
+    priority: 2
+    scrape_hints:
+      selector_base: "[data-pricing-card]"
+      has_tiers: true
+      has_free_tier: true
+      billing_default: monthly
+      has_usage_based: false
+      units: "members"
+
+  # Project Management
+  - slug: linear
+    name: Linear
+    category: Project Management
+    pricing_url: https://linear.app/pricing
+    priority: 2
+    scrape_hints:
+      selector_base: ".pricing-tiers"
+      has_tiers: true
+      has_free_tier: true
+      billing_default: monthly
+      has_usage_based: false
+      units: "seats"
+
+  - slug: asana
+    name: Asana
+    category: Project Management
+    pricing_url: https://asana.com/pricing
+    priority: 2
+    scrape_hints:
+      selector_base: ".pricing-cards"
+      has_tiers: true
+      has_free_tier: true
+      billing_default: annual
+      has_usage_based: false
+      units: "users"
+
+  # Design
+  - slug: figma
+    name: Figma
+    category: Design
+    pricing_url: https://www.figma.com/pricing/
+    priority: 1
+    scrape_hints:
+      selector_base: ".pricing__cards"
+      has_tiers: true
+      has_free_tier: true
+      billing_default: annual
+      has_usage_based: false
+      units: "editors"
+
+  # Development Tools
+  - slug: github
+    name: GitHub
+    category: Development
+    pricing_url: https://github.com/pricing
+    priority: 1
+    scrape_hints:
+      selector_base: ".pricing-card"
+      has_tiers: true
+      has_free_tier: true
+      billing_default: monthly
+      has_usage_based: false
+      units: "users"
+
+  - slug: vercel
+    name: Vercel
+    category: Hosting
+    pricing_url: https://vercel.com/pricing
+    priority: 3
+    scrape_hints:
+      selector_base: "[data-pricing]"
+      has_tiers: true
+      has_free_tier: true
+      billing_default: monthly
+      has_usage_based: true
+      units: "seats"
+
+  # Analytics
+  - slug: datadog
+    name: Datadog
+    category: Monitoring
+    pricing_url: https://www.datadoghq.com/pricing/
+    priority: 2
+    scrape_hints:
+      selector_base: ".pricing-table"
+      has_tiers: true
+      has_free_tier: true
+      billing_default: monthly
+      has_usage_based: true
+      complex_pricing: true
+      units: "hosts"
+
+  - slug: segment
+    name: Segment
+    category: Analytics
+    pricing_url: https://segment.com/pricing/
+    priority: 2
+    scrape_hints:
+      selector_base: ".pricing-cards"
+      has_tiers: true
+      has_free_tier: true
+      billing_default: monthly
+      has_usage_based: true
+      units: "tracked_users"
+
+  - slug: amplitude
+    name: Amplitude
+    category: Analytics
+    pricing_url: https://amplitude.com/pricing
+    priority: 2
+    scrape_hints:
+      selector_base: ".pricing-table"
+      has_tiers: true
+      has_free_tier: true
+      billing_default: monthly
+      has_usage_based: true
+      units: "events"
+
+  # Customer Support
+  - slug: intercom
+    name: Intercom
+    category: Customer Support
+    pricing_url: https://www.intercom.com/pricing
+    priority: 2
+    scrape_hints:
+      selector_base: ".pricing-cards"
+      has_tiers: true
+      has_free_tier: false
+      billing_default: annual
+      has_usage_based: false
+      units: "seats"
+
+  - slug: zendesk
+    name: Zendesk
+    category: Customer Support
+    pricing_url: https://www.zendesk.com/pricing/
+    priority: 2
+    scrape_hints:
+      selector_base: ".pricing-table"
+      has_tiers: true
+      has_free_tier: false
+      billing_default: annual
+      has_usage_based: false
+      units: "agents"
+
+  # Video & Meetings
+  - slug: zoom
+    name: Zoom
+    category: Video Conferencing
+    pricing_url: https://zoom.us/pricing
+    priority: 2
+    scrape_hints:
+      selector_base: ".pricing-table"
+      has_tiers: true
+      has_free_tier: true
+      billing_default: annual
+      has_usage_based: false
+      units: "hosts"
+
+  # Database & Infrastructure
+  - slug: supabase
+    name: Supabase
+    category: Database
+    pricing_url: https://supabase.com/pricing
+    priority: 3
+    scrape_hints:
+      selector_base: ".pricing-table"
+      has_tiers: true
+      has_free_tier: true
+      billing_default: monthly
+      has_usage_based: true
+      units: "projects"
+
+  - slug: mongodb
+    name: MongoDB Atlas
+    category: Database
+    pricing_url: https://www.mongodb.com/pricing
+    priority: 3
+    scrape_hints:
+      selector_base: "[data-pricing]"
+      has_tiers: true
+      has_free_tier: true
+      billing_default: monthly
+      has_usage_based: true
+      units: "clusters"
+
+  # AI & ML
+  - slug: openai
+    name: OpenAI
+    category: AI
+    pricing_url: https://openai.com/pricing
+    priority: 3
+    scrape_hints:
+      selector_base: ".pricing-table"
+      has_tiers: false
+      has_free_tier: false
+      billing_default: monthly
+      has_usage_based: true
+      units: "tokens"
+
+  - slug: anthropic
+    name: Anthropic
+    category: AI
+    pricing_url: https://www.anthropic.com/pricing
+    priority: 3
+    scrape_hints:
+      selector_base: ".pricing-section"
+      has_tiers: false
+      has_free_tier: false
+      billing_default: monthly
+      has_usage_based: true
+      units: "tokens"

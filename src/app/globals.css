@@ -1,0 +1,417 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Import Inter Variable Font */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+@layer base {
+  /* Typography foundation for premium feel */
+  html {
+    font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-variant-numeric: tabular-nums slashed-zero;
+    font-feature-settings: "tnum" 1, "lnum" 1, "zero" 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  /* Premium smooth scrolling */
+  html {
+    scroll-behavior: smooth;
+  }
+
+  /* Remove default margins and set premium background */
+  body {
+    margin: 0;
+    background: var(--sp-surface-0);
+    color: var(--sp-text-primary);
+    min-height: 100vh;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+
+  /* Premium focus styles */
+  *:focus-visible {
+    outline: none;
+    ring: 2px solid var(--sp-focus);
+    ring-offset: 2px;
+    ring-offset-color: var(--sp-surface-0);
+  }
+}
+
+:root {
+  /* Color scheme for system theme detection */
+  color-scheme: light dark;
+
+  /* ============================================
+     SPACING SYSTEM - Consistent premium spacing
+     ============================================ */
+  --sp-space-2xs: 0.125rem;  /* 2px */
+  --sp-space-xs: 0.25rem;    /* 4px */
+  --sp-space-sm: 0.5rem;     /* 8px */
+  --sp-space-md: 1rem;       /* 16px */
+  --sp-space-lg: 1.5rem;     /* 24px */
+  --sp-space-xl: 2rem;       /* 32px */
+  --sp-space-2xl: 3rem;      /* 48px */
+  --sp-space-3xl: 4rem;      /* 64px */
+
+  /* ============================================
+     Z-INDEX SCALE - Layering system
+     ============================================ */
+  --sp-z-base: 0;
+  --sp-z-dropdown: 10;
+  --sp-z-sticky: 20;
+  --sp-z-fixed: 30;
+  --sp-z-backdrop: 40;
+  --sp-z-popover: 50;
+  --sp-z-tooltip: 60;
+  --sp-z-modal: 100;
+
+  /* ============================================
+     MOTION TOKENS - Premium animations
+     ============================================ */
+  --sp-duration-instant: 50ms;
+  --sp-duration-fast: 150ms;
+  --sp-duration-normal: 250ms;
+  --sp-duration-slow: 400ms;
+  --sp-easing-standard: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --sp-easing-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+
+  /* ============================================
+     LIGHT THEME (Default) - Clean & Professional
+     ============================================ */
+  
+  /* Surface colors - Clean whites with subtle grey */
+  --sp-surface-0: #FFFFFF;
+  --sp-surface-0-rgb: 255 255 255;
+  --sp-surface-1: #F8FAFC;
+  --sp-surface-1-rgb: 248 250 252;
+  --sp-surface-2: #F1F5F9;
+  --sp-surface-2-rgb: 241 245 249;
+  
+  /* Text hierarchy - Sharp contrast for readability */
+  --sp-text-primary: #0F172A;
+  --sp-text-primary-rgb: 15 23 42;
+  --sp-text-secondary: #475569;
+  --sp-text-secondary-rgb: 71 85 105;
+  --sp-text-muted: #64748B;
+  --sp-text-muted-rgb: 100 116 139;
+  
+  /* Border - Subtle definition */
+  --sp-border: rgba(15, 23, 42, 0.08);
+  --sp-border-rgb: 15 23 42;
+  
+  /* Accent - Professional blue */
+  --sp-accent: #3B82F6;
+  --sp-accent-rgb: 59 130 246;
+  --sp-accent-hover: #2563EB;
+  --sp-accent-active: #1D4ED8;
+  --sp-accent-muted: rgba(59, 130, 246, 0.10);
+  
+  /* Semantic colors - Clear status indication */
+  --sp-success: #10B981;
+  --sp-success-rgb: 16 185 129;
+  --sp-warning: #F59E0B;
+  --sp-warning-rgb: 245 158 11;
+  --sp-error: #EF4444;
+  --sp-error-rgb: 239 68 68;
+  
+  /* Focus - Accessibility */
+  --sp-focus: #3B82F6;
+  --sp-focus-rgb: 59 130 246;
+  
+  /* Shadows for depth */
+  --sp-shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --sp-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+  --sp-shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --sp-shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  --sp-shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+}
+
+/* ============================================
+   DARK THEME - Premium midnight palette
+   ============================================ */
+@media (prefers-color-scheme: dark) {
+  :root {
+    /* Surface colors - Rich midnight blues */
+    --sp-surface-0: #0A0E27;  /* Deep midnight */
+    --sp-surface-0-rgb: 10 14 39;
+    --sp-surface-1: #1A1F3A;  /* Raised surface */
+    --sp-surface-1-rgb: 26 31 58;
+    --sp-surface-2: #2D3451;  /* Elevated surface */
+    --sp-surface-2-rgb: 45 52 81;
+    
+    /* Text hierarchy - Optimized for dark backgrounds */
+    --sp-text-primary: #F1F5F9;
+    --sp-text-primary-rgb: 241 245 249;
+    --sp-text-secondary: #CBD5E1;
+    --sp-text-secondary-rgb: 203 213 225;
+    --sp-text-muted: #94A3B8;
+    --sp-text-muted-rgb: 148 163 184;
+    
+    /* Border - Subtle in dark mode */
+    --sp-border: rgba(241, 245, 249, 0.12);
+    --sp-border-rgb: 241 245 249;
+    
+    /* Accent - Vibrant on dark */
+    --sp-accent: #3B82F6;
+    --sp-accent-rgb: 59 130 246;
+    --sp-accent-hover: #60A5FA;
+    --sp-accent-active: #93BBFC;
+    --sp-accent-muted: rgba(59, 130, 246, 0.15);
+    
+    /* Semantic colors - Adjusted for dark mode */
+    --sp-success: #10B981;
+    --sp-success-rgb: 16 185 129;
+    --sp-warning: #F59E0B;
+    --sp-warning-rgb: 245 158 11;
+    --sp-error: #EF4444;
+    --sp-error-rgb: 239 68 68;
+    
+    /* Focus - Higher contrast in dark */
+    --sp-focus: #60A5FA;
+    --sp-focus-rgb: 96 165 250;
+    
+    /* Shadows - Deeper for premium depth */
+    --sp-shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.25);
+    --sp-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.3), 0 1px 2px -1px rgb(0 0 0 / 0.3);
+    --sp-shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.3), 0 2px 4px -2px rgb(0 0 0 / 0.3);
+    --sp-shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.3), 0 4px 6px -4px rgb(0 0 0 / 0.3);
+    --sp-shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.3), 0 8px 10px -6px rgb(0 0 0 / 0.3);
+  }
+}
+
+/* ============================================
+   PREMIUM COMPONENT STYLES
+   ============================================ */
+
+/* Premium button transitions */
+button {
+  transition: all var(--sp-duration-fast) var(--sp-easing-standard);
+}
+
+button:hover {
+  transform: translateY(-1px);
+}
+
+button:active {
+  transform: translateY(0);
+}
+
+/* Premium card styling */
+.card-premium {
+  background: var(--sp-surface-1);
+  border: 1px solid var(--sp-border);
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.05), 0 10px 25px -5px rgba(0, 0, 0, 0.3), 0 4px 10px -6px rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(10px);
+  transition: all var(--sp-duration-normal) var(--sp-easing-standard);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Subtle gradient overlay for depth */
+.card-premium::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--sp-accent), transparent);
+  opacity: 0.3;
+}
+
+.card-premium:hover {
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.05), 0 20px 35px -5px rgba(0, 0, 0, 0.4), 0 8px 15px -6px rgba(0, 0, 0, 0.3);
+  transform: translateY(-2px);
+  border-color: var(--sp-accent);
+}
+
+/* Glass morphism effect for premium feel */
+.glass-morphism {
+  background: linear-gradient(135deg, rgba(var(--sp-surface-1-rgb) / 0.9) 0%, rgba(var(--sp-surface-2-rgb) / 0.8) 100%);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(var(--sp-border-rgb) / 0.2);
+  box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.05);
+}
+
+/* Premium gradients */
+.gradient-premium {
+  background: linear-gradient(135deg, var(--sp-accent) 0%, var(--sp-accent-hover) 100%);
+}
+
+.gradient-surface {
+  background: linear-gradient(180deg, var(--sp-surface-0) 0%, var(--sp-surface-1) 100%);
+}
+
+/* ============================================
+   ANIMATIONS
+   ============================================ */
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { 
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to { 
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+/* Animation utilities */
+.animate-fadeIn {
+  animation: fadeIn var(--sp-duration-normal) var(--sp-easing-standard);
+}
+
+.animate-slideUp {
+  animation: slideUp var(--sp-duration-normal) var(--sp-easing-standard);
+}
+
+.animate-pulse {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* ============================================
+   ACCESSIBILITY & HIGH CONTRAST
+   ============================================ */
+
+@media (prefers-contrast: more) {
+  :root {
+    --sp-border: rgba(241, 245, 249, 0.24);
+    --sp-focus-offset: 3px;
+  }
+}
+
+@media (prefers-contrast: more) and (prefers-color-scheme: light) {
+  :root {
+    --sp-border: rgba(15, 23, 42, 0.16);
+  }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+  }
+  
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+/* ============================================
+   SELECTION STYLES
+   ============================================ */
+
+::selection {
+  background: var(--sp-accent);
+  color: white;
+}
+
+::-moz-selection {
+  background: var(--sp-accent);
+  color: white;
+}
+
+/* ============================================
+   SCROLLBAR STYLING (Webkit browsers)
+   ============================================ */
+
+::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--sp-surface-1);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--sp-border);
+  border-radius: 6px;
+  border: 3px solid var(--sp-surface-1);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--sp-text-muted);
+}
+
+/* ============================================
+   LANDING PAGE ANIMATIONS
+   ============================================ */
+
+/* Gradient animation */
+@keyframes gradient {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+.animate-gradient {
+  animation: gradient 3s ease infinite;
+}
+
+.bg-300\% {
+  background-size: 300% 300%;
+}
+
+/* Underline animation */
+@keyframes underline-grow {
+  0% {
+    transform: scaleX(0);
+  }
+  100% {
+    transform: scaleX(1);
+  }
+}
+
+.animate-underline-grow {
+  animation: underline-grow 0.3s ease-out 0.5s forwards;
+}
+
+/* Float animation */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+.animate-float-delay-1 {
+  animation: float 6s ease-in-out infinite;
+  animation-delay: 2s;
+}
+
+.animate-float-delay-2 {
+  animation: float 6s ease-in-out infinite;
+  animation-delay: 4s;
+}
+
+/* Pulse delay */
+.delay-1000 {
+  animation-delay: 1s;
+}
