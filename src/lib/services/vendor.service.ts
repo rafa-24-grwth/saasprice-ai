@@ -10,6 +10,12 @@ const supabase = createClient();
  * Get all active vendors
  */
 export async function getAllVendors(): Promise<Vendor[]> {
+  // During build with placeholder credentials, return empty array
+  if (process.env.NEXT_PUBLIC_SUPABASE_URL === 'https://placeholder.supabase.co') {
+    console.warn('Using placeholder Supabase credentials, returning empty vendors array for build');
+    return [];
+  }
+
   const { data, error } = await supabase
     .from('vendors')
     .select('*')
@@ -18,6 +24,11 @@ export async function getAllVendors(): Promise<Vendor[]> {
 
   if (error) {
     console.error('Error fetching vendors:', error);
+    // During build, don't throw - just return empty array
+    if (process.env.NODE_ENV === 'production') {
+      console.warn('Build-time vendor fetch failed, returning empty array');
+      return [];
+    }
     throw new Error('Failed to fetch vendors');
   }
 
@@ -35,6 +46,12 @@ async function _fetchVendorWithPricing(
   vendor: Vendor;
   plans: Array<Plan & { prices: PriceFact[] }>;
 } | null> {
+  // During build with placeholder credentials, return null
+  if (process.env.NEXT_PUBLIC_SUPABASE_URL === 'https://placeholder.supabase.co') {
+    console.warn('Using placeholder Supabase credentials, returning null for build');
+    return null;
+  }
+
   const { data, error } = await supabase
     .from('vendors')
     .select(`
