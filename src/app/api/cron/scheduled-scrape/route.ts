@@ -1,21 +1,23 @@
+// src/app/api/cron/scheduled-scrape/route.ts
+
 import { NextRequest, NextResponse } from 'next/server';
 import { SchedulingService } from '@/lib/services/scheduling.service';
+import { headers } from 'next/headers';
 
 export const dynamic = 'force-dynamic';
-
-// Vercel cron secret for security (set in environment variables)
-const CRON_SECRET = process.env.CRON_SECRET;
 
 export async function GET(request: NextRequest) {
   const startTime = Date.now();
   const schedulingService = new SchedulingService();
 
   try {
-    // Verify this is a legitimate cron request
-    const authHeader = request.headers.get('authorization');
+    // Verify this is a legitimate cron request from Vercel
     if (process.env.NODE_ENV === 'production') {
-      if (authHeader !== `Bearer ${CRON_SECRET}`) {
-        console.error('Unauthorized cron request');
+      const authHeader = headers().get('authorization');
+      
+      // Vercel sends the cron secret as Bearer token
+      if (process.env.CRON_SECRET && authHeader !== `Bearer ${process.env.CRON_SECRET}`) {
+        console.error('Unauthorized cron request - invalid or missing CRON_SECRET');
         return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
       }
     }

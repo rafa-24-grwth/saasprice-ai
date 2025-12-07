@@ -1,3 +1,5 @@
+//src/app/api/scrape/route.ts
+
 import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
 import { createClient } from '@/lib/supabase/server';
@@ -33,7 +35,7 @@ const scrapeQuerySchema = z.object({
  * {
  *   vendor_id: string (required)
  *   vendor_name?: string (optional)
- *   method?: ScrapingMethod (optional - will auto-select if not provided)
+ *   method?: ScrapingMethod (optional - defaults to firecrawl)
  *   force?: boolean (optional - ignore cache if true)
  *   priority?: number (optional - 0-100, default 50)
  *   callback_url?: string (optional - webhook for completion)
@@ -75,17 +77,24 @@ export async function POST(request: NextRequest) {
       );
     }
     
-    // Determine scraping method
-    let selectedMethod: ScrapingMethod = method || 'playwright';
+    // CHANGED: Default to firecrawl instead of playwright
+    let selectedMethod: ScrapingMethod = method || 'firecrawl';
     let estimatedCost = 0;
     
     if (!method) {
-      // Auto-select best method based on budget and vendor
-      const optimalMethod = await BudgetManagerService.getOptimalMethod(
-        vendor_id,
-        ['playwright', 'firecrawl', 'vision']
-      );
-      selectedMethod = optimalMethod || 'playwright';
+      // CHANGED: Start with firecrawl as the preferred method
+      const preferredMethods: ScrapingMethod[] = ['firecrawl', 'playwright', 'vision'];
+      
+      // Check if we can afford firecrawl first
+      const canAffordFirecrawl = await BudgetManagerService.canAfford('firecrawl');
+      
+      if (canAffordFirecrawl) {
+        selectedMethod = 'firecrawl';
+      } else {
+        // Fall back to free playwright if budget is tight
+        selectedMethod = 'playwright';
+        console.log('Budget insufficient for firecrawl, falling back to playwright');
+      }
     } else {
       // Check if we can afford the requested method
       const canAfford = await BudgetManagerService.canAfford(method);
@@ -97,8 +106,8 @@ export async function POST(request: NextRequest) {
     }
     
     // Calculate estimated cost
-    const methodCosts = { playwright: 0, firecrawl: 0.01, vision: 0.02 };
-    estimatedCost = methodCosts[selectedMethod as keyof typeof methodCosts];
+    const methodCosts = { playwright: 0, firecrawl: 0.01, vision: 0.02, manual: 0 };
+    estimatedCost = methodCosts[selectedMethod as keyof typeof methodCosts] || 0;
     
     // Pre-allocate budget (will be refunded if job fails)
     const allocation = await BudgetManagerService.allocate(
@@ -107,14 +116,34 @@ export async function POST(request: NextRequest) {
     );
     
     if (!allocation.success) {
-      return NextResponse.json(
-        { 
-          success: false, 
-          error: allocation.message,
-          budget_remaining: allocation.remaining 
-        },
-        { status: 402 } // Payment Required
-      );
+      // If we can't afford any paid method, force playwright
+      if (selectedMethod !== 'playwright') {
+        console.log('Budget allocation failed, forcing playwright method');
+        selectedMethod = 'playwright';
+        estimatedCost = 0;
+        
+        // Try allocation again with free method
+        const freeAllocation = await BudgetManagerService.allocate('playwright', vendor_id);
+        if (!freeAllocation.success) {
+          return NextResponse.json(
+            { 
+              success: false, 
+              error: 'Unable to allocate budget even for free scraping',
+              budget_remaining: freeAllocation.remaining 
+            },
+            { status: 500 }
+          );
+        }
+      } else {
+        return NextResponse.json(
+          { 
+            success: false, 
+            error: allocation.message,
+            budget_remaining: allocation.remaining 
+          },
+          { status: 402 } // Payment Required
+        );
+      }
     }
     
     // Generate job ID
@@ -145,7 +174,8 @@ export async function POST(request: NextRequest) {
         metadata: {
           requested_at: new Date().toISOString(),
           requested_method: method,
-          auto_selected: !method
+          auto_selected: !method,
+          default_method: 'firecrawl' // Track that we default to firecrawl
         }
       });
     
@@ -204,10 +234,11 @@ export async function POST(request: NextRequest) {
         vendor_id,
         method: selectedMethod,
         estimated_cost: `$${estimatedCost.toFixed(2)}`,
-        message: `Scraping job for ${vendor_name || vendor_id} has been queued`,
+        message: `Scraping job for ${vendor_name || vendor_id} has been queued using ${selectedMethod}`,
         estimated_wait_time: estimatedWaitTime || 30,
         queue_position: queuedCount + 1,
-        check_status_url: `/api/scrape?job_id=${jobId}`
+        check_status_url: `/api/scrape?job_id=${jobId}`,
+        note: selectedMethod === 'playwright' && !method ? 'Using free fallback due to budget constraints' : undefined
       },
       { status: 202 } // Accepted
     );
